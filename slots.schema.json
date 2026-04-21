@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "hero_title": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 60
+    },
+    "hero_subheadline": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 140
+    },
+    "nap_block": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": {
+          "type": "string",
+          "pattern": "^\\+?1?\\d{10}$"
+        },
+        "city": { "type": "string" },
+        "state": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "zip": {
+          "type": "string",
+          "pattern": "^\\d{5}(-\\d{4})?$"
+        }
+      },
+      "required": ["name", "address", "phone", "city", "state", "zip"],
+      "additionalProperties": false
+    },
+    "services": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "maxLength": 50 },
+          "blurb": { "type": "string", "maxLength": 180 }
+        },
+        "required": ["name", "blurb"],
+        "additionalProperties": false
+      }
+    },
+    "cta_text": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 40
+    },
+    "about_body": {
+      "type": "string",
+      "minLength": 100,
+      "maxLength": 600
+    }
+  },
+  "required": [
+    "hero_title",
+    "hero_subheadline",
+    "nap_block",
+    "services",
+    "cta_text",
+    "about_body"
+  ],
+  "additionalProperties": false
+}
