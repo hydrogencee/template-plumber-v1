@@ -8,7 +8,10 @@ import { ReviewsSection } from '../components/ReviewsSection';
 import { Footer } from '../components/Footer';
 
 export default function HomePage() {
-  const { hero_title, hero_subheadline, nap_block, services, cta_text, about_body } = siteConfig;
+  const {
+    hero_title, hero_subheadline, nap_block, services, cta_text, about_body,
+    google_rating, google_review_count, reviews, trust_badges,
+  } = siteConfig;
 
   return (
     <>
@@ -17,10 +20,22 @@ export default function HomePage() {
         hero_subheadline={hero_subheadline}
         cta_text={cta_text}
         nap_block={nap_block}
+        trust_badges={trust_badges}
+        google_rating={google_rating}
       />
       <ServicesSection services={services} />
-      <AboutSection nap_block={nap_block} about_body={about_body} />
-      <ReviewsSection />
+      <AboutSection
+        nap_block={nap_block}
+        about_body={about_body}
+        google_rating={google_rating}
+        google_review_count={google_review_count}
+        trust_badges={trust_badges}
+      />
+      <ReviewsSection
+        reviews={reviews}
+        google_rating={google_rating}
+        google_review_count={google_review_count}
+      />
       <ContactForm />
       <NapBlock nap_block={nap_block} />
       <Footer nap_block={nap_block} />
