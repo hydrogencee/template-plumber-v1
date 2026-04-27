@@ -1,38 +1,26 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import type { PlumberSlots } from '../../site.config';
 
-const reviews = [
-  {
-    name: 'Michael T.',
-    rating: 5,
-    text: 'Called at 11pm with a burst pipe — they were here in 45 minutes. Fixed everything quickly and cleanly. Absolutely saved us.',
-    date: '2 weeks ago',
-  },
-  {
-    name: 'Sarah K.',
-    rating: 5,
-    text: 'Incredibly professional. The tech explained exactly what was wrong before starting any work. Pricing was totally transparent. Will use again.',
-    date: '1 month ago',
-  },
-  {
-    name: 'David R.',
-    rating: 5,
-    text: 'Been using them for years. They installed a new water heater in under 3 hours. No mess, great warranty, highly recommend.',
-    date: '3 weeks ago',
-  },
-];
+interface ReviewsSectionProps {
+  reviews: PlumberSlots['reviews'];
+  google_rating: PlumberSlots['google_rating'];
+  google_review_count: PlumberSlots['google_review_count'];
+}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
+    transition: { duration: 0.5, delay: i * 0.12 },
   }),
 };
 
-export function ReviewsSection() {
+export function ReviewsSection({ reviews, google_rating, google_review_count }: ReviewsSectionProps) {
+  if (!reviews || reviews.length === 0) return null;
+
   return (
     <section className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -44,29 +32,35 @@ export function ReviewsSection() {
           className="text-center mb-14"
         >
           <span className="inline-block text-sky-600 font-semibold text-sm tracking-widest uppercase mb-3">
-            Testimonials
+            Real Reviews
           </span>
           <h2
             className="text-3xl sm:text-4xl font-bold text-[#0c4a6e] mb-4"
             style={{ fontFamily: 'Lexend, sans-serif' }}
           >
-            What Customers Say
+            What Customers Are Saying
           </h2>
 
-          {/* Google badge */}
-          <div className="inline-flex items-center gap-2 bg-[#F0F9FF] border border-sky-100 rounded-full px-5 py-2.5 mt-2">
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-              ))}
+          {google_rating > 0 && (
+            <div className="inline-flex items-center gap-2 bg-[#F0F9FF] border border-sky-100 rounded-full px-5 py-2.5 mt-2">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-4 h-4 ${i < Math.round(google_rating) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-[#0c4a6e]">{google_rating} on Google</span>
+              {google_review_count > 0 && (
+                <span className="text-xs text-slate-400">· {google_review_count}+ reviews</span>
+              )}
             </div>
-            <span className="text-sm font-semibold text-[#0c4a6e]">4.9 on Google</span>
-            <span className="text-xs text-slate-400">· 120+ reviews</span>
-          </div>
+          )}
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reviews.map((review, i) => (
+          {reviews.slice(0, 6).map((review: PlumberSlots['reviews'][number], i: number) => (
             <motion.div
               key={i}
               custom={i}
