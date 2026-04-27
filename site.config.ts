@@ -16,19 +16,16 @@ export interface PlumberSlots {
   services: Array<{ name: string; blurb: string }>;
   cta_text: string;
   about_body: string;
+  google_rating: number;
+  google_review_count: number;
+  reviews: Array<{ name: string; rating: number; text: string; date: string }>;
+  trust_badges: string[];
 }
 
 const siteConfig: PlumberSlots = {
   hero_title: 'PLACEHOLDER',
   hero_subheadline: 'PLACEHOLDER',
-  nap_block: {
-    name: 'PLACEHOLDER',
-    address: '',
-    phone: '',
-    city: '',
-    state: '',
-    zip: '',
-  },
+  nap_block: { name: 'PLACEHOLDER', address: '', phone: '', city: '', state: '', zip: '' },
   services: [
     { name: 'PLACEHOLDER', blurb: '' },
     { name: 'PLACEHOLDER', blurb: '' },
@@ -36,6 +33,10 @@ const siteConfig: PlumberSlots = {
   ],
   cta_text: 'PLACEHOLDER',
   about_body: 'PLACEHOLDER',
+  google_rating: 0,
+  google_review_count: 0,
+  reviews: [],
+  trust_badges: ['Licensed & Insured', 'Same-Day Service Available'],
 };
 
 export default siteConfig;
