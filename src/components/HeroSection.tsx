@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Phone, Clock, Shield, Star, ChevronDown } from 'lucide-react';
+import { Phone, ChevronDown, ShieldCheck } from 'lucide-react';
 import type { PlumberSlots } from '../../site.config';
 
 interface HeroSectionProps {
@@ -8,29 +8,20 @@ interface HeroSectionProps {
   hero_subheadline: PlumberSlots['hero_subheadline'];
   cta_text: PlumberSlots['cta_text'];
   nap_block: PlumberSlots['nap_block'];
+  trust_badges: PlumberSlots['trust_badges'];
+  google_rating: PlumberSlots['google_rating'];
 }
 
-const trustBadges = [
-  { icon: Clock, label: '24/7 Emergency Service' },
-  { icon: Shield, label: 'Licensed & Insured' },
-  { icon: Star, label: '5★ Google Reviews' },
-  { icon: Phone, label: 'Same-Day Appointments' },
-];
-
-export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block }: HeroSectionProps) {
+export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block, trust_badges, google_rating }: HeroSectionProps) {
   const phoneHref = `tel:+1${nap_block.phone.replace(/\D/g, '')}`;
-  const formattedPhone = nap_block.phone;
 
   return (
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden bg-[#0c4a6e]">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0c4a6e] via-[#0f3554] to-[#071e2f] opacity-100" />
-      {/* Decorative circles */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0c4a6e] via-[#0f3554] to-[#071e2f]" />
       <div className="absolute top-[-10%] right-[-5%] w-96 h-96 rounded-full bg-sky-500/10 blur-3xl" />
       <div className="absolute bottom-[-10%] left-[-5%] w-80 h-80 rounded-full bg-sky-400/10 blur-3xl" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
-        {/* City badge */}
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,7 +32,6 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block 
           Serving {nap_block.city}, {nap_block.state}
         </motion.div>
 
-        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +42,6 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block 
           {hero_title}
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,7 +51,6 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block 
           {hero_subheadline}
         </motion.p>
 
-        {/* CTA buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,7 +62,7 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block 
             className="group flex items-center gap-3 bg-[#F97316] hover:bg-[#ea6c0a] text-white font-bold px-8 py-4 rounded-xl text-lg transition-all duration-200 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 cursor-pointer w-full sm:w-auto justify-center"
           >
             <Phone className="w-5 h-5 group-hover:animate-pulse" />
-            <span>{formattedPhone}</span>
+            <span>{nap_block.phone}</span>
           </a>
           <a
             href="#contact"
@@ -84,26 +72,32 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block 
           </a>
         </motion.div>
 
-        {/* Trust badges */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto"
-        >
-          {trustBadges.map(({ icon: Icon, label }) => (
-            <div
-              key={label}
-              className="flex flex-col items-center gap-2 bg-white/5 border border-white/10 rounded-xl py-3 px-2 backdrop-blur-sm"
-            >
-              <Icon className="w-5 h-5 text-sky-400" />
-              <span className="text-xs text-sky-100/70 font-medium text-center leading-tight">{label}</span>
-            </div>
-          ))}
-        </motion.div>
+        {trust_badges.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto"
+          >
+            {trust_badges.map((badge: string) => (
+              <div
+                key={badge}
+                className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl py-2.5 px-4 backdrop-blur-sm"
+              >
+                <ShieldCheck className="w-4 h-4 text-sky-400 shrink-0" />
+                <span className="text-xs text-sky-100/80 font-medium">{badge}</span>
+              </div>
+            ))}
+            {google_rating > 0 && (
+              <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl py-2.5 px-4 backdrop-blur-sm">
+                <span className="text-amber-400 text-xs font-bold">{google_rating}★</span>
+                <span className="text-xs text-sky-100/80 font-medium">Google Rating</span>
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
