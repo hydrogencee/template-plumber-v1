@@ -20,6 +20,7 @@ export interface PlumberSlots {
   google_review_count: number;
   reviews: Array<{ name: string; rating: number; text: string; date: string }>;
   trust_badges: string[];
+  theme: { hero_bg: string; primary: string; accent: string };
 }
 
 const siteConfig: PlumberSlots = {
@@ -36,7 +37,8 @@ const siteConfig: PlumberSlots = {
   google_rating: 0,
   google_review_count: 0,
   reviews: [],
-  trust_badges: ['Licensed & Insured', 'Same-Day Service Available'],
+  trust_badges: ['Licensed & Insured'],
+  theme: { hero_bg: '#0F172A', primary: '#1E3A8A', accent: '#CA8A04' },
 };
 
 export default siteConfig;
