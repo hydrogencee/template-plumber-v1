@@ -22,8 +22,9 @@ export default function HomePage() {
         nap_block={nap_block}
         trust_badges={trust_badges}
         google_rating={google_rating}
+        google_review_count={google_review_count}
       />
-      <ServicesSection services={services} />
+      <ServicesSection services={services} city={nap_block.city} />
       <AboutSection
         nap_block={nap_block}
         about_body={about_body}
@@ -35,6 +36,7 @@ export default function HomePage() {
         reviews={reviews}
         google_rating={google_rating}
         google_review_count={google_review_count}
+        businessName={nap_block.name}
       />
       <ContactForm />
       <NapBlock nap_block={nap_block} />
