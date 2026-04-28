@@ -7,7 +7,7 @@ export function ContactForm() {
   const action = formspreeId ? `https://formspree.io/f/${formspreeId}` : '#';
 
   return (
-    <section className="py-20 px-6 bg-[#F0F9FF]">
+    <section className="py-20 px-6 bg-slate-50">
       <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,13 +16,13 @@ export function ContactForm() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="inline-block text-sky-600 font-semibold text-sm tracking-widest uppercase mb-3">
+          <span
+            className="inline-block font-semibold text-sm tracking-widest uppercase mb-3"
+            style={{ color: 'var(--hs-accent)' }}
+          >
             Free Estimate
           </span>
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-[#0c4a6e] mb-4"
-            style={{ fontFamily: 'Lexend, sans-serif' }}
-          >
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Get a Free Quote
           </h2>
           <p className="text-slate-500 text-lg leading-relaxed">
@@ -53,7 +53,7 @@ export function ContactForm() {
                     type="text"
                     required
                     placeholder="Jane Smith"
-                    className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent transition-all duration-200 text-sm"
+                    className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent transition-all duration-200 text-sm"
                   />
                 </div>
               </div>
@@ -70,7 +70,7 @@ export function ContactForm() {
                     type="tel"
                     required
                     placeholder="(203) 555-0100"
-                    className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent transition-all duration-200 text-sm"
+                    className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent transition-all duration-200 text-sm"
                   />
                 </div>
               </div>
@@ -88,7 +88,7 @@ export function ContactForm() {
                   rows={4}
                   required
                   placeholder="E.g. leaking pipe under kitchen sink, need urgent repair..."
-                  className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent transition-all duration-200 text-sm resize-none"
+                  className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent transition-all duration-200 text-sm resize-none"
                 />
               </div>
             </div>
@@ -97,7 +97,8 @@ export function ContactForm() {
               type="submit"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-3 bg-[#F97316] hover:bg-[#ea6c0a] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors duration-200 shadow-lg shadow-orange-500/20 cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 text-white font-bold px-8 py-4 rounded-xl text-lg transition-opacity duration-200 hover:opacity-90 shadow-lg cursor-pointer"
+              style={{ backgroundColor: 'var(--hs-accent)' }}
             >
               <Send className="w-5 h-5" />
               Send My Request
