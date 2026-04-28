@@ -5,67 +5,48 @@ import type { PlumberSlots } from '../../site.config';
 
 interface ServicesSectionProps {
   services: PlumberSlots['services'];
+  city: string;
 }
 
 const serviceIcons = [Wrench, Droplets, Flame, ShowerHead, AlertTriangle, Settings];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
-
-export function ServicesSection({ services }: ServicesSectionProps) {
+export function ServicesSection({ services, city }: ServicesSectionProps) {
   return (
-    <section className="py-20 px-6 bg-[#F0F9FF]">
+    <section className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="mb-14"
         >
-          <span className="inline-block text-sky-600 font-semibold text-sm tracking-widest uppercase mb-3">
-            What We Do
+          <span className="inline-block font-semibold text-sm tracking-widest uppercase mb-3" style={{ color: 'var(--hs-accent)' }}>
+            Services
           </span>
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-[#0c4a6e] mb-4"
-            style={{ fontFamily: 'Lexend, sans-serif' }}
-          >
-            Our Services
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] mb-4 max-w-xl">
+            What We Handle in {city}
           </h2>
-          <p className="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed">
-            Professional plumbing solutions delivered with speed, quality, and guaranteed satisfaction.
-          </p>
+          <div className="w-12 h-1 rounded-full" style={{ backgroundColor: 'var(--hs-accent)' }} />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, i) => {
             const Icon = serviceIcons[i % serviceIcons.length];
             return (
               <motion.div
                 key={i}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                variants={cardVariants}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-lg border border-slate-100 transition-shadow duration-300 cursor-default"
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className="group bg-[#F8FAFC] hover:bg-white rounded-2xl p-7 border border-slate-100 hover:shadow-lg transition-all duration-300 cursor-default"
               >
-                <div className="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
-                  <Icon className="w-6 h-6 text-sky-500" />
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: 'color-mix(in srgb, var(--hs-primary) 10%, transparent)' }}>
+                  <Icon className="w-5 h-5" style={{ color: 'var(--hs-primary)' }} />
                 </div>
-                <h3
-                  className="text-lg font-semibold text-[#0c4a6e] mb-3"
-                  style={{ fontFamily: 'Lexend, sans-serif' }}
-                >
-                  {service.name}
-                </h3>
+                <h3 className="text-base font-semibold text-[#0F172A] mb-2.5">{service.name}</h3>
                 <p className="text-slate-500 leading-relaxed text-sm">{service.blurb}</p>
               </motion.div>
             );
