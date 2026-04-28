@@ -1,59 +1,47 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import type { PlumberSlots } from '../../site.config';
 
 interface ReviewsSectionProps {
   reviews: PlumberSlots['reviews'];
   google_rating: PlumberSlots['google_rating'];
   google_review_count: PlumberSlots['google_review_count'];
+  businessName: string;
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.12 },
-  }),
-};
-
-export function ReviewsSection({ reviews, google_rating, google_review_count }: ReviewsSectionProps) {
+export function ReviewsSection({ reviews, google_rating, google_review_count, businessName }: ReviewsSectionProps) {
   if (!reviews || reviews.length === 0) return null;
 
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="mb-14"
         >
-          <span className="inline-block text-sky-600 font-semibold text-sm tracking-widest uppercase mb-3">
-            Real Reviews
+          <span className="inline-block font-semibold text-sm tracking-widest uppercase mb-3" style={{ color: 'var(--hs-accent)' }}>
+            Reviews
           </span>
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-[#0c4a6e] mb-4"
-            style={{ fontFamily: 'Lexend, sans-serif' }}
-          >
-            What Customers Are Saying
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A] mb-4">
+            What {businessName.split(' ')[0]} Customers Say
           </h2>
+          <div className="w-12 h-1 rounded-full mb-6" style={{ backgroundColor: 'var(--hs-accent)' }} />
 
           {google_rating > 0 && (
-            <div className="inline-flex items-center gap-2 bg-[#F0F9FF] border border-sky-100 rounded-full px-5 py-2.5 mt-2">
+            <div className="inline-flex items-center gap-3 bg-[#F8FAFC] border border-slate-200 rounded-xl px-5 py-3">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${i < Math.round(google_rating) ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
-                  />
+                  <Star key={i} className="w-4 h-4" style={{ fill: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0', color: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0' }} />
                 ))}
               </div>
-              <span className="text-sm font-semibold text-[#0c4a6e]">{google_rating} on Google</span>
+              <span className="font-bold text-[#0F172A]">{google_rating}</span>
+              <span className="text-slate-400 text-sm">on Google</span>
               {google_review_count > 0 && (
-                <span className="text-xs text-slate-400">· {google_review_count}+ reviews</span>
+                <span className="text-slate-400 text-sm">· {google_review_count} reviews</span>
               )}
             </div>
           )}
@@ -63,21 +51,23 @@ export function ReviewsSection({ reviews, google_rating, google_review_count }: 
           {reviews.slice(0, 6).map((review: PlumberSlots['reviews'][number], i: number) => (
             <motion.div
               key={i}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              variants={cardVariants}
-              className="bg-[#F0F9FF] rounded-2xl p-7 border border-sky-100 flex flex-col gap-4"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-[#F8FAFC] rounded-2xl p-7 border border-slate-100 flex flex-col gap-5"
             >
-              <div className="flex gap-0.5">
-                {[...Array(review.rating)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <p className="text-slate-600 leading-relaxed text-sm flex-1">"{review.text}"</p>
-              <div className="flex items-center justify-between pt-2 border-t border-sky-100">
-                <span className="font-semibold text-[#0c4a6e] text-sm">{review.name}</span>
+              <Quote className="w-6 h-6 shrink-0 opacity-40" style={{ color: 'var(--hs-accent)' }} />
+              <p className="text-slate-600 leading-relaxed text-sm flex-1 italic">"{review.text}"</p>
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                <div>
+                  <span className="font-semibold text-[#0F172A] text-sm block">{review.name}</span>
+                  <div className="flex gap-0.5 mt-1">
+                    {[...Array(review.rating)].map((_, j) => (
+                      <Star key={j} className="w-3 h-3" style={{ fill: 'var(--hs-accent)', color: 'var(--hs-accent)' }} />
+                    ))}
+                  </div>
+                </div>
                 <span className="text-xs text-slate-400">{review.date}</span>
               </div>
             </motion.div>
