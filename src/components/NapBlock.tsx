@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock } from 'lucide-react';
+import { MapPin, Phone } from 'lucide-react';
 import type { PlumberSlots } from '../../site.config';
 
 interface NapBlockProps {
@@ -11,15 +11,15 @@ export function NapBlock({ nap_block }: NapBlockProps) {
   const { name, address, phone, city, state, zip } = nap_block;
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(name + ' ' + city + ' ' + state)}&output=embed`;
   const phoneHref = `tel:+1${phone.replace(/\D/g, '')}`;
+  const displayAddress = [address, city, state, zip].filter(Boolean).join(', ');
 
   const contactItems = [
-    { icon: MapPin, label: 'Address', value: `${address}, ${city}, ${state} ${zip}` },
+    ...(displayAddress ? [{ icon: MapPin, label: 'Address', value: displayAddress }] : []),
     { icon: Phone, label: 'Phone', value: phone, href: phoneHref },
-    { icon: Clock, label: 'Hours', value: 'Mon–Sun: 7am – 9pm · 24/7 Emergency' },
-  ];
+  ] as Array<{ icon: typeof MapPin; label: string; value: string; href?: string }>;
 
   return (
-    <section id="contact" className="py-20 px-6 bg-[#0c4a6e]">
+    <section id="location" className="py-20 px-6" style={{ backgroundColor: 'var(--hs-primary)' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,22 +28,21 @@ export function NapBlock({ nap_block }: NapBlockProps) {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="inline-block text-sky-300 font-semibold text-sm tracking-widest uppercase mb-3">
+          <span
+            className="inline-block font-semibold text-sm tracking-widest uppercase mb-3"
+            style={{ color: 'var(--hs-accent)' }}
+          >
             Find Us
           </span>
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Lexend, sans-serif' }}
-          >
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Contact & Location
           </h2>
-          <p className="text-sky-100/70 max-w-xl mx-auto text-lg leading-relaxed">
-            Proudly serving {city} and surrounding areas. Call anytime — we answer 24/7.
+          <p className="text-white/60 max-w-xl mx-auto text-lg leading-relaxed">
+            Proudly serving {city} and surrounding areas.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,37 +53,41 @@ export function NapBlock({ nap_block }: NapBlockProps) {
             {contactItems.map(({ icon: Icon, label, value, href }) => (
               <div
                 key={label}
-                className="flex items-start gap-4 bg-white/10 border border-white/10 rounded-2xl p-5 backdrop-blur-sm"
+                className="flex items-start gap-4 bg-white/8 border border-white/10 rounded-2xl p-5"
               >
-                <div className="w-10 h-10 rounded-xl bg-sky-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <Icon className="w-5 h-5 text-sky-300" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 bg-white/10">
+                  <Icon className="w-5 h-5" style={{ color: 'var(--hs-accent)' }} />
                 </div>
                 <div>
-                  <p className="text-sky-300 text-xs font-semibold uppercase tracking-wider mb-1">{label}</p>
+                  <p
+                    className="text-xs font-semibold uppercase tracking-wider mb-1"
+                    style={{ color: 'var(--hs-accent)' }}
+                  >
+                    {label}
+                  </p>
                   {href ? (
-                    <a href={href} className="text-white font-medium text-lg hover:text-sky-200 transition-colors cursor-pointer">
+                    <a href={href} className="text-white font-medium text-lg hover:opacity-80 transition-opacity cursor-pointer">
                       {value}
                     </a>
                   ) : (
-                    <p className="text-white font-medium leading-relaxed">{value}</p>
+                    <p className="text-white/80 font-medium leading-relaxed">{value}</p>
                   )}
                 </div>
               </div>
             ))}
 
-            {/* CTA repeat */}
             <motion.a
               href={phoneHref}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center justify-center gap-3 bg-[#F97316] hover:bg-[#ea6c0a] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors duration-200 shadow-lg shadow-orange-500/30 cursor-pointer w-full"
+              className="flex items-center justify-center gap-3 text-white font-bold px-8 py-4 rounded-xl text-lg transition-opacity duration-200 hover:opacity-90 shadow-lg cursor-pointer w-full"
+              style={{ backgroundColor: 'var(--hs-accent)' }}
             >
               <Phone className="w-5 h-5" />
               <span>Call Now — {phone}</span>
             </motion.a>
           </motion.div>
 
-          {/* Map */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
