@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: 'DM Sans', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --color-brand: #1E3A8A;
+  --font-heading: 'Lexend', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --color-brand: #1E40AF;
   --color-brand-dark: #0F172A;
-  --color-cta: #CA8A04;
-  --color-cta-hover: #a16207;
-  --color-surface: #F8FAFC;
+  --color-cta: #F97316;
+  --color-cta-hover: #ea6c0a;
+  --color-surface: #EFF6FF;
 }
 
 html {
@@ -17,10 +17,25 @@ html {
 body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  background-color: #F8FAFC;
-  color: #020617;
+  background-color: #EFF6FF;
+  color: #0F172A;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  animation: pulse-ring 1.8s ease-out infinite;
 }
