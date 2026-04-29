@@ -8,10 +8,14 @@ interface ReviewsSectionProps {
   google_rating: PlumberSlots['google_rating'];
   google_review_count: PlumberSlots['google_review_count'];
   businessName: string;
+  google_place_id?: string;
 }
 
-export function ReviewsSection({ reviews, google_rating, google_review_count, businessName }: ReviewsSectionProps) {
+export function ReviewsSection({ reviews, google_rating, google_review_count, businessName, google_place_id }: ReviewsSectionProps) {
   if (!reviews || reviews.length === 0) return null;
+  const googleReviewUrl = google_place_id
+    ? `https://www.google.com/maps/place/?q=place_id:${google_place_id}`
+    : null;
 
   return (
     <section className="py-24 px-6 bg-white">
@@ -32,16 +36,29 @@ export function ReviewsSection({ reviews, google_rating, google_review_count, bu
           <div className="w-12 h-1 rounded-full mb-6" style={{ backgroundColor: 'var(--hs-accent)' }} />
 
           {google_rating > 0 && (
-            <div className="inline-flex items-center gap-3 bg-[#F8FAFC] border border-slate-200 rounded-xl px-5 py-3">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4" style={{ fill: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0', color: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0' }} />
-                ))}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-3 bg-[#F8FAFC] border border-slate-200 rounded-xl px-5 py-3">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4" style={{ fill: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0', color: i < Math.round(google_rating) ? 'var(--hs-accent)' : '#e2e8f0' }} />
+                  ))}
+                </div>
+                <span className="font-bold text-[#0F172A]">{google_rating}</span>
+                <span className="text-slate-400 text-sm">on Google</span>
+                {google_review_count > 0 && (
+                  <span className="text-slate-400 text-sm">· {google_review_count} reviews</span>
+                )}
               </div>
-              <span className="font-bold text-[#0F172A]">{google_rating}</span>
-              <span className="text-slate-400 text-sm">on Google</span>
-              {google_review_count > 0 && (
-                <span className="text-slate-400 text-sm">· {google_review_count} reviews</span>
+              {googleReviewUrl && google_review_count > 0 && (
+                <a
+                  href={googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 transition-opacity hover:opacity-70 cursor-pointer"
+                  style={{ color: 'var(--hs-accent)' }}
+                >
+                  See all {google_review_count} reviews on Google →
+                </a>
               )}
             </div>
           )}
