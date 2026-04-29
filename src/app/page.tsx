@@ -10,7 +10,7 @@ import { Footer } from '../components/Footer';
 export default function HomePage() {
   const {
     hero_title, hero_subheadline, nap_block, services, cta_text, about_body,
-    google_rating, google_review_count, reviews, trust_badges,
+    google_rating, google_review_count, reviews, trust_badges, google_place_id,
   } = siteConfig;
 
   return (
@@ -37,6 +37,7 @@ export default function HomePage() {
         google_rating={google_rating}
         google_review_count={google_review_count}
         businessName={nap_block.name}
+        google_place_id={google_place_id}
       />
       <ContactForm />
       <NapBlock nap_block={nap_block} />
