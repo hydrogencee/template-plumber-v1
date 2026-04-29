@@ -40,8 +40,8 @@ export function ServicesSection({ services, city }: ServicesSectionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                className="group bg-[#F8FAFC] hover:bg-white rounded-2xl p-7 border border-slate-100 hover:shadow-lg transition-all duration-300 cursor-default"
+                whileHover={{ y: -3, transition: { duration: 0.15 } }}
+                className="group bg-[#F8FAFC] hover:bg-white rounded-2xl p-7 border border-slate-100 hover:shadow-lg transition-all duration-150 cursor-default"
               >
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: 'color-mix(in srgb, var(--hs-primary) 10%, transparent)' }}>
                   <Icon className="w-5 h-5" style={{ color: 'var(--hs-primary)' }} />
