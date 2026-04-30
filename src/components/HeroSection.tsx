@@ -12,9 +12,11 @@ interface HeroSectionProps {
   trust_badges: PlumberSlots['trust_badges'];
   google_rating: PlumberSlots['google_rating'];
   google_review_count: PlumberSlots['google_review_count'];
+  logo_url?: string;
+  cover_photo_url?: string;
 }
 
-export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block, trust_badges, google_rating, google_review_count }: HeroSectionProps) {
+export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block, trust_badges, google_rating, google_review_count, logo_url, cover_photo_url }: HeroSectionProps) {
   const phoneHref = `tel:+1${nap_block.phone.replace(/\D/g, '')}`;
   const [scrolled, setScrolled] = useState(false);
 
@@ -54,9 +56,14 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
         style={{ backgroundColor: 'var(--hs-hero-bg)' }}
       >
         {/* Background layers */}
+        {cover_photo_url ? (
+          <>
+            <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${cover_photo_url})` }} />
+            <div className="absolute inset-0" style={{ backgroundColor: 'var(--hs-hero-bg)', opacity: 0.82 }} />
+          </>
+        ) : null}
         <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(ellipse 80% 60% at 75% -10%, var(--hs-primary), transparent)` }} />
         <div className="absolute inset-0 opacity-15" style={{ background: `radial-gradient(ellipse 50% 50% at 20% 90%, var(--hs-accent), transparent)` }} />
-        {/* Subtle grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -77,10 +84,15 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
             Serving {nap_block.city}, {nap_block.state}
           </motion.div>
 
-          {/* Business name */}
-          <motion.p variants={stagger.item} className="font-bold text-base mb-2 tracking-wide" style={{ color: 'var(--hs-accent)', fontFamily: 'var(--font-heading)' }}>
-            {nap_block.name}
-          </motion.p>
+          {/* Logo or business name */}
+          <motion.div variants={stagger.item} className="flex items-center gap-3 mb-2">
+            {logo_url ? (
+              <img src={logo_url} alt={`${nap_block.name} logo`} className="w-10 h-10 rounded-full object-cover bg-white/10" />
+            ) : null}
+            <p className="font-bold text-base tracking-wide" style={{ color: 'var(--hs-accent)', fontFamily: 'var(--font-heading)' }}>
+              {nap_block.name}
+            </p>
+          </motion.div>
 
           {/* Main headline */}
           <motion.h1 variants={stagger.item} className="text-4xl sm:text-5xl lg:text-[4.25rem] font-black text-white leading-[1.05] mb-5 max-w-3xl" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
