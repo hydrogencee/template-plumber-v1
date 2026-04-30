@@ -24,6 +24,7 @@ export interface PlumberSlots {
   google_place_id: string;
   logo_url?: string;
   cover_photo_url?: string;
+  faqs?: Array<{ question: string; answer: string }>;
 }
 
 const siteConfig: PlumberSlots = {
