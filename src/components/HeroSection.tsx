@@ -84,15 +84,10 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
             Serving {nap_block.city}, {nap_block.state}
           </motion.div>
 
-          {/* Logo or business name */}
-          <motion.div variants={stagger.item} className="flex items-center gap-3 mb-2">
-            {logo_url ? (
-              <img src={logo_url} alt={`${nap_block.name} logo`} className="w-10 h-10 rounded-full object-cover bg-white/10" />
-            ) : null}
-            <p className="font-bold text-base tracking-wide" style={{ color: 'var(--hs-accent)', fontFamily: 'var(--font-heading)' }}>
-              {nap_block.name}
-            </p>
-          </motion.div>
+          {/* Business name eyebrow */}
+          <motion.p variants={stagger.item} className="font-bold text-base tracking-wide mb-2" style={{ color: 'var(--hs-accent)', fontFamily: 'var(--font-heading)' }}>
+            {nap_block.name}
+          </motion.p>
 
           {/* Main headline */}
           <motion.h1 variants={stagger.item} className="text-4xl sm:text-5xl lg:text-[4.25rem] font-black text-white leading-[1.05] mb-5 max-w-3xl" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
@@ -161,8 +156,8 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
           </motion.div>
         </motion.div>
 
-        {/* Bottom fade — multi-stop for smooth blend */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(239,246,255,0.4) 40%, rgba(239,246,255,0.85) 70%, #EFF6FF 100%)' }} />
+        {/* Bottom fade — rgba(0 start) prevents browser interpolating through black */}
+        <div className="absolute bottom-0 left-0 right-0 h-96 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(239,246,255,0) 0%, rgba(239,246,255,0.25) 30%, rgba(239,246,255,0.65) 55%, rgba(239,246,255,0.92) 78%, #EFF6FF 100%)' }} />
       </section>
     </>
   );
