@@ -6,13 +6,14 @@ import { NapBlock } from '../components/NapBlock';
 import { ContactForm } from '../components/ContactForm';
 import { AboutSection } from '../components/AboutSection';
 import { ReviewsSection } from '../components/ReviewsSection';
+import { FaqSection } from '../components/FaqSection';
 import { Footer } from '../components/Footer';
 
 export default function HomePage() {
   const {
     hero_title, hero_subheadline, nap_block, services, cta_text, about_body,
     google_rating, google_review_count, reviews, trust_badges, google_place_id,
-    logo_url, cover_photo_url,
+    logo_url, cover_photo_url, faqs,
   } = siteConfig;
 
   return (
@@ -44,6 +45,7 @@ export default function HomePage() {
         businessName={nap_block.name}
         google_place_id={google_place_id}
       />
+      <FaqSection faqs={faqs} city={nap_block.city} />
       <ContactForm />
       <NapBlock nap_block={nap_block} />
       <Footer nap_block={nap_block} />
