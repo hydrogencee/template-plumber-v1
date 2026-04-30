@@ -1,4 +1,5 @@
 import siteConfig from '../../site.config';
+import { SiteHeader } from '../components/SiteHeader';
 import { HeroSection } from '../components/HeroSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { NapBlock } from '../components/NapBlock';
@@ -16,6 +17,7 @@ export default function HomePage() {
 
   return (
     <>
+      <SiteHeader name={nap_block.name} phone={nap_block.phone} logo_url={logo_url} />
       <HeroSection
         hero_title={hero_title}
         hero_subheadline={hero_subheadline}
