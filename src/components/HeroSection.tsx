@@ -58,8 +58,8 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
         {/* Background layers */}
         {cover_photo_url ? (
           <>
-            <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${cover_photo_url})` }} />
-            <div className="absolute inset-0" style={{ backgroundColor: 'var(--hs-hero-bg)', opacity: 0.82 }} />
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${cover_photo_url})`, opacity: 0.18 }} />
+            <div className="absolute inset-0" style={{ background: `linear-gradient(160deg, color-mix(in srgb, var(--hs-hero-bg) 90%, transparent) 0%, var(--hs-hero-bg) 60%)` }} />
           </>
         ) : null}
         <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(ellipse 80% 60% at 75% -10%, var(--hs-primary), transparent)` }} />
@@ -161,8 +161,8 @@ export function HeroSection({ hero_title, hero_subheadline, cta_text, nap_block,
           </motion.div>
         </motion.div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, #EFF6FF)' }} />
+        {/* Bottom fade — multi-stop for smooth blend */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(239,246,255,0.4) 40%, rgba(239,246,255,0.85) 70%, #EFF6FF 100%)' }} />
       </section>
     </>
   );
