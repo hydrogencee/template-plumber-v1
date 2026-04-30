@@ -11,12 +11,24 @@ interface ReviewsSectionProps {
   google_place_id?: string;
 }
 
+function getShortName(name: string): string {
+  // Strip common trade suffixes so "Leak Off Plumbing & Heating" → "Leak Off", "PDQ Plumbing" → "PDQ"
+  return name
+    .replace(/\s+(plumbing|heating|hvac|mechanical|drain|sewer|services?|llc\.?|inc\.?|co\.?|corp\.?|ltd\.?)(\s.*)?$/i, '')
+    .trim() || name;
+}
+
 export function ReviewsSection({ reviews, google_rating, google_review_count, businessName, google_place_id }: ReviewsSectionProps) {
-  if (!reviews || reviews.length === 0) return null;
+  const hasReviews = reviews && reviews.length > 0;
+  const hasRating = google_rating > 0;
+
+  // Nothing to show at all — hide the whole section
+  if (!hasReviews && !hasRating) return null;
+
   const googleReviewUrl = google_place_id
     ? `https://www.google.com/maps/place/?q=place_id:${google_place_id}`
     : null;
-  const firstName = businessName.split(' ')[0];
+  const shortName = getShortName(businessName);
 
   return (
     <section className="py-24 px-6 bg-white">
@@ -34,7 +46,7 @@ export function ReviewsSection({ reviews, google_rating, google_review_count, bu
             Customer Reviews
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-slate-900 mb-6" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
-            What {firstName} Customers Say
+            What {shortName} Customers Say
           </h2>
 
           {google_rating > 0 && (
@@ -74,8 +86,8 @@ export function ReviewsSection({ reviews, google_rating, google_review_count, bu
           )}
         </motion.div>
 
-        {/* Review cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Review cards — only rendered when real review text is available */}
+        {hasReviews && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.slice(0, 6).map((review: PlumberSlots['reviews'][number], i: number) => (
             <motion.div
               key={i}
@@ -109,7 +121,7 @@ export function ReviewsSection({ reviews, google_rating, google_review_count, bu
               </div>
             </motion.div>
           ))}
-        </div>
+        </div>}
       </div>
     </section>
   );
