@@ -11,6 +11,7 @@ export default function HomePage() {
   const {
     hero_title, hero_subheadline, nap_block, services, cta_text, about_body,
     google_rating, google_review_count, reviews, trust_badges, google_place_id,
+    logo_url, cover_photo_url,
   } = siteConfig;
 
   return (
@@ -23,6 +24,8 @@ export default function HomePage() {
         trust_badges={trust_badges}
         google_rating={google_rating}
         google_review_count={google_review_count}
+        logo_url={logo_url}
+        cover_photo_url={cover_photo_url}
       />
       <ServicesSection services={services} city={nap_block.city} />
       <AboutSection
