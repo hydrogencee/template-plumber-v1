@@ -52,8 +52,8 @@ export function ServicesSection({ services, city }: ServicesSectionProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4, transition: { duration: 0.18 } }}
-                className="group relative bg-white rounded-2xl p-7 border border-slate-100 hover:border-slate-200 hover:shadow-xl transition-all duration-200 cursor-default overflow-hidden"
+                whileHover={{ y: -3, transition: { duration: 0.1 } }}
+                className="group relative bg-white rounded-2xl p-7 border border-slate-100 hover:border-slate-200 hover:shadow-xl transition-all duration-100 cursor-default overflow-hidden"
               >
                 {/* Top accent bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ backgroundColor: colors.bar }} />
