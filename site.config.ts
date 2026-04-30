@@ -22,6 +22,8 @@ export interface PlumberSlots {
   trust_badges: string[];
   theme: { hero_bg: string; primary: string; accent: string };
   google_place_id: string;
+  logo_url?: string;
+  cover_photo_url?: string;
 }
 
 const siteConfig: PlumberSlots = {
