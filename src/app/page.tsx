@@ -46,7 +46,7 @@ export default function HomePage() {
         google_place_id={google_place_id}
       />
       <FaqSection faqs={faqs} city={nap_block.city} />
-      <ContactForm />
+      <ContactForm nap_block={nap_block} />
       <NapBlock nap_block={nap_block} />
       <Footer nap_block={nap_block} />
     </>
